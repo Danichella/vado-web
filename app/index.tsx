@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { router } from 'expo-router';
 
-import { SafeAreaView } from 'react-native';
-
-import { baseStyles } from '../assets/styles/baseStyles';
 import Chat from './chat';
+import { useAuth } from '@/hooks/useAuth';
+
+require('../helpers/axiosInit');
 
 export default function Index() {
-  return (
-    <SafeAreaView style={baseStyles.container}>
-      <Chat />
-    </SafeAreaView>
-  );
+  const { isAuthToken } = useAuth();
+
+  useEffect(() => {
+    const verifyAuthToken = async () =>
+      !(await isAuthToken()) && router.replace('/auth/login');
+
+    verifyAuthToken();
+  }, [isAuthToken]);
+
+  return <Chat />;
 }
