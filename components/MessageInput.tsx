@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, Image } from 'react-native';
 
-import { colors } from '@/assets/styles/colors';
+import { colors } from '@/constants/colors';
 import { messageStyles } from '@/assets/styles/messageStyles';
 import SendIcon from '@/assets/images/send-icon.svg';
 import MicIcon from '@/assets/images/mic-icon.svg';
