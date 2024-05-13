@@ -4,12 +4,12 @@ import { View, Text } from 'react-native';
 import { messageStyles } from '@/assets/styles/messageStyles';
 
 interface IMessageProps {
-  text: string;
+  content: string;
   role: string;
   time: string;
 }
 
-export const Message = ({ text, role, time }: IMessageProps) => {
+export const Message = ({ content, role, time }: IMessageProps) => {
   const isUserMessage = role === 'user';
 
   return (
@@ -26,7 +26,7 @@ export const Message = ({ text, role, time }: IMessageProps) => {
           isUserMessage ? messageStyles.user : messageStyles.assistant,
         ]}
       >
-        <Text style={messageStyles.text}>{text}</Text>
+        <Text style={messageStyles.text}>{content}</Text>
       </View>
     </View>
   );

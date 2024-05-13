@@ -46,7 +46,7 @@ export const useSignUp = () => {
         }
       })
       .catch((error) => {
-        setError(error.message);
+        setError(error.response.data.status.message);
       });
   };
 
