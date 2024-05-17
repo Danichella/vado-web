@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { SafeAreaView, FlatList } from 'react-native';
 
-import { chatStyles } from '../assets/styles/chatStyles';
-import { Message } from '../components/Message';
-import { MessageInput } from '../components/MessageInput';
+import { chatStyles } from '../../assets/styles/chatStyles';
+import { Message } from '../../components/Message';
+import { MessageInput } from '../../components/MessageInput';
 import { useMessages } from '@/hooks/useMessages';
 
-const Chat = () => {
+const Index = () => {
   const {
     messages,
     messageInput,
@@ -41,4 +41,4 @@ const Chat = () => {
   );
 };
 
-export default Chat;
+export default Index;
