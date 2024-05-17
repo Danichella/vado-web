@@ -9,7 +9,7 @@
     "userInterfaceStyle": "automatic",
     "backgroundColor": "#0f172a",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/vado_logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#0f172a"
     },
@@ -18,14 +18,14 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/vado_logo.png",
         "backgroundColor": "#0f172a"
       }
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/vado_logo.png"
     },
     "plugins": [
       "expo-router",

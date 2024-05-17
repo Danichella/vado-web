@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { router } from 'expo-router';
-import * as SecureStore from 'expo-secure-store';
 
 import axios from '@/helpers/axiosInit';
 import { useAuth } from './useAuth';
@@ -29,7 +28,7 @@ export const useLogin = () => {
 
         if (body.status.code === 200) {
           await setAuthToken(response.headers.authorization);
-          router.replace('/');
+          router.replace('/tabs');
         } else {
           setError(body.status.message);
         }

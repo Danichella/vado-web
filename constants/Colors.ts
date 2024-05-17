@@ -19,4 +19,8 @@ export const colors = {
     background: '#3b82f6',
     text: '#fafaf9',
   },
+  navigation: {
+    inactive: '#a3a3a3',
+    active: '#fafaf9',
+  },
 };

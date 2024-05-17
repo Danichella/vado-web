@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
 import { router } from 'expo-router';
 
-import Chat from './chat';
 import { useAuth } from '@/hooks/useAuth';
-
-require('../helpers/axiosInit');
+import { Redirect } from 'expo-router';
 
 export default function Index() {
   const { isAuthToken } = useAuth();
@@ -16,5 +14,5 @@ export default function Index() {
     verifyAuthToken();
   }, [isAuthToken]);
 
-  return <Chat />;
+  return <Redirect href={'/tabs'} />;
 }
