@@ -30,4 +30,7 @@ export const colors = {
     button: '#404040',
     signOut: '#dc2626',
   },
+  emptyState: {
+    text: '#525252',
+  },
 };
