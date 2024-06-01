@@ -23,4 +23,11 @@ export const colors = {
     inactive: '#a3a3a3',
     active: '#fafaf9',
   },
+  account: {
+    info: '#404040',
+    select: '#404040',
+    icon: '#fafaf9',
+    button: '#404040',
+    signOut: '#dc2626',
+  },
 };

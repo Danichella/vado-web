@@ -12,13 +12,19 @@ interface IPostProps {
 }
 
 export const useApi = () => {
-  const { getAuthToken } = useAuth();
+  const { getAuthToken, deleteAuthToken } = useAuth();
 
   const getHeaders = async () => ({
     Authorization: await getAuthToken(),
   });
 
-  const errorHandler = (error: any) => console.log(error.response);
+  const errorHandler = (error: any) => {
+    if (error.request.status === 401) {
+      deleteAuthToken();
+    }
+
+    console.error(error);
+  };
 
   const get = async ({ url, query_params = {} }: IGetProps) =>
     axios
@@ -35,8 +41,15 @@ export const useApi = () => {
       .then((response) => response.data)
       .catch(errorHandler);
 
+  const put = async ({ url, body = {} }: IPostProps) =>
+    axios
+      .put(`/api/v1/${url}`, body, { headers: await getHeaders() })
+      .then((response) => response.data)
+      .catch(errorHandler);
+
   return {
     get,
     post,
+    put,
   };
 };

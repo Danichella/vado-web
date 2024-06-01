@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { View, TextInput, Pressable } from 'react-native';
 
-import { colors } from '@/constants/colors';
+import { colors } from '@/constants/Colors';
 import { messageStyles } from '@/assets/styles/messageStyles';
 import SendIcon from '@/assets/images/send-icon.svg';
 import MicIcon from '@/assets/images/mic-icon.svg';

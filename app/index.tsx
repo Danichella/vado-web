@@ -5,14 +5,15 @@ import { useAuth } from '@/hooks/useAuth';
 import { Redirect } from 'expo-router';
 
 export default function Index() {
-  const { isAuthToken } = useAuth();
+  const { isAuthToken, expiredAuthToken } = useAuth();
 
   useEffect(() => {
     const verifyAuthToken = async () =>
-      !(await isAuthToken()) && router.replace('/auth/login');
+      (!(await isAuthToken()) || expiredAuthToken) &&
+      router.replace('/auth/login');
 
     verifyAuthToken();
-  }, [isAuthToken]);
+  }, [isAuthToken, expiredAuthToken]);
 
   return <Redirect href={'/tabs'} />;
 }

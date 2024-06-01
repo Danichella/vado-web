@@ -1,4 +1,4 @@
-# Welcome to your Vado app 👋
+# Welcome to Vado app 👋
 
 ## Get started
 
