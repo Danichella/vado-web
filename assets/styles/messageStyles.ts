@@ -15,6 +15,13 @@ export const messageStyles = StyleSheet.create({
     flexDirection: 'row-reverse',
     alignSelf: 'flex-start',
   },
+  optionsContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 8,
+    marginLeft: 4,
+  },
   textContainer: {
     display: 'flex',
     alignItems: 'center',
@@ -36,11 +43,15 @@ export const messageStyles = StyleSheet.create({
   },
   date: {
     color: colors.messages.dateColor,
-    marginRight: 8,
-    marginLeft: 8,
+    marginLeft: 4,
     fontSize: 12,
   },
+  speakerIcon: {
+    width: 20,
+    height: 20,
+  },
   inputContainer: {
+    height: 60,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -49,6 +60,20 @@ export const messageStyles = StyleSheet.create({
     paddingVertical: 8,
     paddingLeft: 12,
     paddingRight: 6,
+  },
+  textInputContainer: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  voiceInputContainer: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
   },
   input: {
     flex: 1,
@@ -73,5 +98,23 @@ export const messageStyles = StyleSheet.create({
     paddingLeft: 10,
     borderLeftWidth: 1,
     borderColor: colors.input.icon,
+  },
+  trash: {
+    width: 45,
+    height: 35,
+    marginLeft: 10,
+    paddingLeft: 10,
+    borderLeftWidth: 1,
+    borderColor: colors.input.icon,
+  },
+  record: {
+    width: 25,
+    height: 25,
+    marginRight: 15,
+  },
+  timer: {
+    flex: 1,
+    fontSize: 18,
+    color: colors.textColor,
   },
 });

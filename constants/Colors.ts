@@ -7,6 +7,7 @@ export const colors = {
     user: '#1e3a8a',
     assistant: '#8b5cf6',
     dateColor: '#737373',
+    speakerIcon: '#737373',
   },
   input: {
     border: '#262626',
@@ -14,6 +15,7 @@ export const colors = {
     background: '#e5e5e5',
     icon: '#e5e5e5',
     text: '#171717',
+    redIcon: '#dc2626',
   },
   button: {
     background: '#3b82f6',

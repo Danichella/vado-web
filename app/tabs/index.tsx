@@ -13,6 +13,8 @@ const Index = () => {
     setMessageInput,
     createMessage,
     fetchMessages,
+    createVoiceMessage,
+    voiceResponse,
   } = useMessages();
 
   useEffect(() => {
@@ -28,7 +30,13 @@ const Index = () => {
         inverted
         data={Array.from(messages)}
         renderItem={({ item }) => (
-          <Message content={item.content} role={item.role} time={item.time} />
+          <Message
+            id={item.id}
+            content={item.content}
+            role={item.role}
+            time={item.time}
+            voiceResponse={voiceResponse}
+          />
         )}
       />
 
@@ -36,6 +44,7 @@ const Index = () => {
         messageInput={messageInput}
         setMessageInput={setMessageInput}
         createMessage={createMessage}
+        createVoiceMessage={createVoiceMessage}
       />
     </SafeAreaView>
   );

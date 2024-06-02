@@ -9,6 +9,12 @@ interface IGetProps {
 interface IPostProps {
   url: string;
   body: object;
+  headers?: object;
+}
+
+interface IPutProps {
+  url: string;
+  body: object;
 }
 
 export const useApi = () => {
@@ -35,13 +41,19 @@ export const useApi = () => {
       .then((response) => response.data)
       .catch(errorHandler);
 
-  const post = async ({ url, body = {} }: IPostProps) =>
+  const post = async ({
+    url,
+    body = {},
+    headers = { 'Content-Type': 'application/json' },
+  }: IPostProps) =>
     axios
-      .post(`/api/v1/${url}`, body, { headers: await getHeaders() })
+      .post(`/api/v1/${url}`, body, {
+        headers: { ...(await getHeaders()), ...headers },
+      })
       .then((response) => response.data)
       .catch(errorHandler);
 
-  const put = async ({ url, body = {} }: IPostProps) =>
+  const put = async ({ url, body = {} }: IPutProps) =>
     axios
       .put(`/api/v1/${url}`, body, { headers: await getHeaders() })
       .then((response) => response.data)

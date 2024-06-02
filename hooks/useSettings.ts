@@ -11,7 +11,7 @@ export const useSettings = () => {
   const { get, put } = useApi();
 
   const [timezone, setTimezone] = useState<string | null>(null);
-  const [timezoneOptions, setTimezoneOptions] = useState([]);
+  const [timezoneOptions, setTimezoneOptions] = useState<Array<ITimezone>>([]);
 
   const fetchTimezoneOptions = useCallback(
     () =>
@@ -26,10 +26,12 @@ export const useSettings = () => {
     []
   );
 
-  const findAndSaveTimezone = (value) => {
-    const timezoneOption = timezoneOptions.find((item) => item.value === value);
+  const findAndSaveTimezone = (value: string) => {
+    const timezoneOption = timezoneOptions.find(
+      (item) => item.value === value
+    )?.value;
 
-    if (timezoneOption) setTimezone(timezoneOption?.value);
+    if (timezoneOption) setTimezone(timezoneOption);
   };
 
   const getSettings = async () => {

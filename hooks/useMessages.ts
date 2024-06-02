@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useApi } from './useApi';
+import { Audio } from 'expo-av';
 
 interface IMessageResponse {
   id: string;
@@ -77,17 +78,66 @@ export const useMessages = () => {
     addNewMessage(message);
     setMessageInput('');
 
-    await buildResponse(message.id);
+    buildResponse(message.id);
   };
 
-  const buildResponse = async (id: string) => {
+  const createVoiceMessage = async (voiceRecord: string) => {
+    const formData = new FormData();
+    formData.append('voice_record', {
+      uri: voiceRecord,
+      type: 'multipart/form-data',
+      name: voiceRecord.split('/').pop(),
+    });
+
+    const response = await post({
+      url: 'messages',
+      body: formData,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    if (!response?.data) return;
+
+    const message: IMessageResponse = response.data;
+    addNewMessage(message);
+
+    buildResponse(message.id, { voice: true });
+  };
+
+  const buildResponse = async (id: string, { voice = false } = {}) => {
     const response = await get({
       url: `messages/${id}/build_response`,
     });
 
     if (!response?.data) return;
 
+    if (voice) {
+      await voiceResponse(response.data[0].id);
+    }
+
     addMessages(response.data, true);
+  };
+
+  const voiceResponse = async (id: string) => {
+    const response = await get({
+      url: `messages/${id}/voice_response`,
+    });
+
+    if (!response.url) return;
+
+    try {
+      const audio = new Audio.Sound();
+      await audio.loadAsync({ uri: response.url });
+      playAudio(audio);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const playAudio = async (audio: Audio.Sound) => {
+    await audio.playAsync();
   };
 
   return {
@@ -96,5 +146,7 @@ export const useMessages = () => {
     setMessageInput,
     createMessage,
     fetchMessages,
+    createVoiceMessage,
+    voiceResponse,
   };
 };
