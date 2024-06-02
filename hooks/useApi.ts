@@ -41,11 +41,7 @@ export const useApi = () => {
       .then((response) => response.data)
       .catch(errorHandler);
 
-  const post = async ({
-    url,
-    body = {},
-    headers = { 'Content-Type': 'application/json' },
-  }: IPostProps) =>
+  const post = async ({ url, body = {}, headers = {} }: IPostProps) =>
     axios
       .post(`/api/v1/${url}`, body, {
         headers: { ...(await getHeaders()), ...headers },

@@ -35,4 +35,10 @@ export const colors = {
   emptyState: {
     text: '#525252',
   },
+  connection: {
+    active: '#fafaf9',
+    inactive: '#404040',
+    activeText: '#0a0a0a',
+    inactiveText: '#fafaf9',
+  },
 };

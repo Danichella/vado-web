@@ -3,12 +3,13 @@ import { View, Text } from 'react-native';
 
 import { accountStyles } from '@/assets/styles/accountStyles';
 import { colors } from '@/constants/Colors';
-import { useAccount } from '@/hooks/useAccount';
 import AccountIcon from '@/assets/images/account-rounded-icon.svg';
 
-export const AccountInfo = () => {
-  const { email } = useAccount();
+interface IAccountInfoProps {
+  email: string;
+}
 
+export const AccountInfo = ({ email }: IAccountInfoProps) => {
   return (
     <View style={accountStyles.accountInfoWrapper}>
       <View style={accountStyles.icon}>
