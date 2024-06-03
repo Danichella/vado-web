@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, Pressable } from 'react-native';
+import Markdown from 'react-native-markdown-display';
 
-import { messageStyles } from '@/assets/styles/messageStyles';
+import { markdownStyles, messageStyles } from '@/assets/styles/messageStyles';
 import SpeakerIcon from '@/assets/images/speaker-icon.svg';
 import { colors } from '@/constants/Colors';
 
@@ -50,7 +51,7 @@ export const Message = ({
           isUserMessage ? messageStyles.user : messageStyles.assistant,
         ]}
       >
-        <Text style={messageStyles.text}>{content}</Text>
+        <Markdown style={markdownStyles}>{content}</Markdown>
       </View>
     </View>
   );

@@ -23,12 +23,13 @@ export const messageStyles = StyleSheet.create({
     marginLeft: 4,
   },
   textContainer: {
+    position: 'relative',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     maxWidth: '70%',
-    paddingVertical: 8,
     paddingHorizontal: 16,
+    paddingTop: 4,
     borderRadius: 20,
   },
   user: {
@@ -36,10 +37,6 @@ export const messageStyles = StyleSheet.create({
   },
   assistant: {
     backgroundColor: colors.messages.assistant,
-  },
-  text: {
-    color: colors.textColor,
-    fontSize: 16,
   },
   date: {
     color: colors.messages.dateColor,
@@ -116,5 +113,27 @@ export const messageStyles = StyleSheet.create({
     flex: 1,
     fontSize: 18,
     color: colors.textColor,
+  },
+});
+
+export const markdownStyles = StyleSheet.create({
+  body: {
+    bottom: 4,
+  },
+  text: {
+    fontSize: 16,
+    color: colors.textColor,
+  },
+  bullet_list: {
+    fontSize: 16,
+    color: colors.textColor,
+    padding: 0,
+    margin: 0,
+  },
+  ordered_list: {
+    fontSize: 16,
+    color: colors.textColor,
+    padding: 0,
+    margin: 0,
   },
 });
