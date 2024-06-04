@@ -5,6 +5,7 @@ import { chatStyles } from '../../assets/styles/chatStyles';
 import { Message } from '../../components/Message';
 import { MessageInput } from '../../components/MessageInput';
 import { useMessages } from '@/hooks/useMessages';
+import { useLocation } from '@/hooks/useLocation';
 
 const Index = () => {
   const {
@@ -16,6 +17,8 @@ const Index = () => {
     createVoiceMessage,
     voiceResponse,
   } = useMessages();
+
+  useLocation();
 
   useEffect(() => {
     const startMessagesFetching = async () => await fetchMessages();
