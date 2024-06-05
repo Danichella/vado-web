@@ -14,13 +14,21 @@
       "backgroundColor": "#0f172a"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.vado.web"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/vado_logo.png",
         "backgroundColor": "#0f172a"
-      }
+      },
+      "permissions": [
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_LOCATION"
+      ],
+      "package": "com.vado.web"
     },
     "web": {
       "bundler": "metro",
@@ -40,6 +48,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "b42d485d-1de6-43aa-937e-bcb645e6ed2a"
+      }
     }
   }
 }
