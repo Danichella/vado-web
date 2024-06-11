@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView, Text, Pressable } from 'react-native';
 
 import { accountStyles } from '@/assets/styles/accountStyles';
@@ -8,11 +8,16 @@ import { AccountInfo } from '@/components/AccountInfo';
 import { GoogleCalendarConnection } from '@/components/GoogleCalendarConnection';
 import { useAccount } from '@/hooks/useAccount';
 import { useConnections } from '@/hooks/useConnections';
+import { AccountProvider, useAccountContext } from '@/hooks/AccountContext';
+import { PageLoader } from '@/components/PageLoader';
 
 const Account = () => {
   const { logout } = useLogout();
   const { email } = useAccount();
   const { isConnected } = useConnections();
+  const { isLoading } = useAccountContext();
+
+  if (isLoading) return <PageLoader />;
 
   return (
     <SafeAreaView style={accountStyles.container}>
@@ -32,4 +37,10 @@ const Account = () => {
   );
 };
 
-export default Account;
+const AccountPage = () => (
+  <AccountProvider>
+    <Account />
+  </AccountProvider>
+);
+
+export default AccountPage;

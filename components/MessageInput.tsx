@@ -14,6 +14,7 @@ interface IMessageInputProps {
   setMessageInput: Dispatch<SetStateAction<string>>;
   createMessage: () => Promise<void>;
   createVoiceMessage: (voiceRecord: string) => Promise<void>;
+  isSending: boolean;
 }
 
 export const MessageInput = ({
@@ -21,6 +22,7 @@ export const MessageInput = ({
   setMessageInput,
   createMessage,
   createVoiceMessage,
+  isSending,
 }: IMessageInputProps) => {
   const {
     timer,
@@ -45,12 +47,14 @@ export const MessageInput = ({
           timer={timer}
           isRecordingStopped={isRecordingStopped}
           sendVoiceMessage={sendVoiceMessage}
+          isSending={isSending}
         />
       ) : (
         <TextInput
           messageInput={messageInput}
           setMessageInput={setMessageInput}
           createMessage={createMessage}
+          isSending={isSending}
         />
       )}
       {isRecordingStopped ? (

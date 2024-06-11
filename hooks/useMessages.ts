@@ -16,20 +16,28 @@ interface IMessage {
   content: string;
   role: string;
   time: string;
+  loader?: boolean;
 }
 
 export const useMessages = () => {
   const [messages, setMessages] = useState<Array<IMessage>>([]);
   const [messageInput, setMessageInput] = useState<string>('');
 
+  const [isLoading, setLoading] = useState<boolean>(false);
+  const [isSending, setIsSending] = useState<boolean>(false);
+  const [isBuildingResponse, setIsBuildingResponse] = useState<boolean>(false);
+  const [voicePlaying, setVoicePlaying] = useState<string | null>(null);
+
   const { get, post } = useApi();
 
   const fetchMessages = async () => {
+    setLoading(true);
     const response = await get({ url: 'messages' });
 
     if (!response?.data) return;
 
     addMessages(response.data);
+    setLoading(false);
   };
 
   const addMessages = (
@@ -64,6 +72,9 @@ export const useMessages = () => {
   };
 
   const createMessage = async () => {
+    if (messageInput.length === 0) return;
+
+    setIsSending(true);
     const response = await post({
       url: 'messages',
       body: { content: messageInput },
@@ -77,11 +88,15 @@ export const useMessages = () => {
     const message: IMessageResponse = response.data;
     addNewMessage(message);
     setMessageInput('');
+    setIsSending(false);
 
     buildResponse(message.id);
   };
 
   const createVoiceMessage = async (voiceRecord: string) => {
+    if (!voiceRecord) return;
+
+    setIsSending(true);
     const formData = new FormData();
     formData.append('voice_record', {
       uri: voiceRecord,
@@ -102,11 +117,13 @@ export const useMessages = () => {
 
     const message: IMessageResponse = response.data;
     addNewMessage(message);
+    setIsSending(false);
 
     buildResponse(message.id, { voice: true });
   };
 
   const buildResponse = async (id: string, { voice = false } = {}) => {
+    setIsBuildingResponse(true);
     const response = await get({
       url: `messages/${id}/build_response`,
     });
@@ -118,9 +135,11 @@ export const useMessages = () => {
     }
 
     addMessages(response.data, true);
+    setIsBuildingResponse(false);
   };
 
   const voiceResponse = async (id: string) => {
+    setVoicePlaying(id);
     const response = await get({
       url: `messages/${id}/voice_response`,
     });
@@ -138,6 +157,7 @@ export const useMessages = () => {
 
   const playAudio = async (audio: Audio.Sound) => {
     await audio.playAsync();
+    setVoicePlaying(null);
   };
 
   return {
@@ -148,5 +168,9 @@ export const useMessages = () => {
     fetchMessages,
     createVoiceMessage,
     voiceResponse,
+    isLoading,
+    isSending,
+    isBuildingResponse,
+    voicePlaying,
   };
 };
