@@ -6,6 +6,8 @@ import { Message } from '../../components/Message';
 import { MessageInput } from '../../components/MessageInput';
 import { useMessages } from '@/hooks/useMessages';
 import { useLocation } from '@/hooks/useLocation';
+import { PageLoader } from '@/components/PageLoader';
+import { MessageLoader } from '@/components/MessageLoader';
 
 const Index = () => {
   const {
@@ -16,7 +18,13 @@ const Index = () => {
     fetchMessages,
     createVoiceMessage,
     voiceResponse,
+    isLoading,
+    isSending,
+    isBuildingResponse,
+    voicePlaying,
   } = useMessages();
+
+  const data = isBuildingResponse ? [{ loader: true }, ...messages] : messages;
 
   useLocation();
 
@@ -26,21 +34,28 @@ const Index = () => {
     startMessagesFetching();
   }, []);
 
+  if (isLoading) return <PageLoader />;
+
   return (
     <SafeAreaView style={chatStyles.container}>
       <FlatList
         style={chatStyles.messagesContainer}
         inverted
-        data={Array.from(messages)}
-        renderItem={({ item }) => (
-          <Message
-            id={item.id}
-            content={item.content}
-            role={item.role}
-            time={item.time}
-            voiceResponse={voiceResponse}
-          />
-        )}
+        data={Array.from(data)}
+        renderItem={({ item }) =>
+          item.loader ? (
+            <MessageLoader />
+          ) : (
+            <Message
+              id={item.id}
+              content={item.content}
+              role={item.role}
+              time={item.time}
+              voiceResponse={voiceResponse}
+              voicePlaying={voicePlaying}
+            />
+          )
+        }
       />
 
       <MessageInput
@@ -48,6 +63,7 @@ const Index = () => {
         setMessageInput={setMessageInput}
         createMessage={createMessage}
         createVoiceMessage={createVoiceMessage}
+        isSending={isSending}
       />
     </SafeAreaView>
   );

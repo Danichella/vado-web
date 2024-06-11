@@ -41,4 +41,9 @@ export const colors = {
     activeText: '#0a0a0a',
     inactiveText: '#fafaf9',
   },
+  loading: {
+    page: '#737373',
+    default: '#e5e5e5',
+    audio: '#737373',
+  },
 };

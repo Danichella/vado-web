@@ -1,6 +1,7 @@
 import { useEffect, useCallback, useState } from 'react';
 import { useApi } from './useApi';
 import locationTimezone from 'node-location-timezone';
+import { useAccountContext } from './AccountContext';
 
 interface ITimezone {
   label: string;
@@ -8,23 +9,23 @@ interface ITimezone {
 }
 
 export const useSettings = () => {
+  const { setSettingsLoading } = useAccountContext();
+
   const { get, put } = useApi();
 
   const [timezone, setTimezone] = useState<string | null>(null);
   const [timezoneOptions, setTimezoneOptions] = useState<Array<ITimezone>>([]);
 
-  const fetchTimezoneOptions = useCallback(
-    () =>
-      locationTimezone
-        .getCapitals()
-        .map((item) => ({
-          label: item.name,
-          value: item.timezone,
-        }))
-        .filter((item) => item.value && item.label)
-        .sort((a, b) => (a.label > b.label ? 1 : -1)),
-    []
-  );
+  const fetchTimezoneOptions = useCallback(() => {
+    return locationTimezone
+      .getCapitals()
+      .map((item) => ({
+        label: item.name,
+        value: item.timezone,
+      }))
+      .filter((item) => item.value && item.label)
+      .sort((a, b) => (a.label > b.label ? 1 : -1));
+  }, []);
 
   const findAndSaveTimezone = (value: string) => {
     const timezoneOption = timezoneOptions.find(
@@ -52,11 +53,13 @@ export const useSettings = () => {
   };
 
   useEffect(() => {
+    setSettingsLoading(true);
     setTimezoneOptions(fetchTimezoneOptions());
   }, []);
 
   useEffect(() => {
     getSettings();
+    setSettingsLoading(false);
   }, [timezoneOptions]);
 
   useEffect(() => {

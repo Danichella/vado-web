@@ -5,6 +5,7 @@ import Markdown from 'react-native-markdown-display';
 import { markdownStyles, messageStyles } from '@/assets/styles/messageStyles';
 import SpeakerIcon from '@/assets/images/speaker-icon.svg';
 import { colors } from '@/constants/Colors';
+import { LoadingSpinner } from './LoadingSpinner';
 
 interface IMessageProps {
   id: string;
@@ -12,6 +13,7 @@ interface IMessageProps {
   role: string;
   time: string;
   voiceResponse: (id: string) => Promise<void>;
+  voicePlaying: string | null;
 }
 
 export const Message = ({
@@ -20,6 +22,7 @@ export const Message = ({
   role,
   time,
   voiceResponse,
+  voicePlaying,
 }: IMessageProps) => {
   const isUserMessage = role === 'user';
 
@@ -34,13 +37,17 @@ export const Message = ({
         {!isUserMessage && (
           <Pressable
             style={messageStyles.speakerIcon}
-            onPress={() => voiceResponse(id)}
+            onPress={() => !voicePlaying && voiceResponse(id)}
           >
-            <SpeakerIcon
-              width="100%"
-              height="100%"
-              color={colors.messages.speakerIcon}
-            />
+            {voicePlaying === id ? (
+              <LoadingSpinner size={20} color={colors.loading.audio} />
+            ) : (
+              <SpeakerIcon
+                width="100%"
+                height="100%"
+                color={colors.messages.speakerIcon}
+              />
+            )}
           </Pressable>
         )}
         <Text style={messageStyles.date}>{time}</Text>
