@@ -39,7 +39,26 @@ export const useSettings = () => {
     if (!timezoneOptions) return;
 
     const response = await get({ url: 'settings' });
-    findAndSaveTimezone(response?.data?.attributes?.timezone);
+    let timezone = response?.data?.attributes?.timezone;
+
+    if (!timezone) {
+      const latitude = Math.floor(
+        response?.data?.attributes?.location.latitude
+      );
+      const longitude = Math.floor(
+        response?.data?.attributes?.location.longitude
+      );
+      timezone = locationTimezone.findLocationsByCoordinates({
+        latitudeFrom: latitude,
+        latitudeTo: latitude + 1,
+        longitudeFrom: longitude,
+        longitudeTo: longitude + 1,
+      })[0]?.timezone;
+      findAndSaveTimezone(timezone);
+      updateSettings();
+    } else {
+      findAndSaveTimezone(timezone);
+    }
   };
 
   const updateSettings = async () => {

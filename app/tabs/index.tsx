@@ -37,30 +37,31 @@ const Index = () => {
 
   if (isLoading) return <PageLoader />;
 
-  if (messages.length === 0)
-    return <EmptyState message="У вас поки немає повідомлень" />;
-
   return (
     <SafeAreaView style={chatStyles.container}>
-      <FlatList
-        style={chatStyles.messagesContainer}
-        inverted
-        data={Array.from(data)}
-        renderItem={({ item }) =>
-          item.loader ? (
-            <MessageLoader />
-          ) : (
-            <Message
-              id={item.id}
-              content={item.content}
-              role={item.role}
-              time={item.time}
-              voiceResponse={voiceResponse}
-              voicePlaying={voicePlaying}
-            />
-          )
-        }
-      />
+      {messages.length === 0 ? (
+        <EmptyState message="У вас поки немає повідомлень" />
+      ) : (
+        <FlatList
+          style={chatStyles.messagesContainer}
+          inverted
+          data={Array.from(data)}
+          renderItem={({ item }) =>
+            item.loader ? (
+              <MessageLoader />
+            ) : (
+              <Message
+                id={item.id}
+                content={item.content}
+                role={item.role}
+                time={item.time}
+                voiceResponse={voiceResponse}
+                voicePlaying={voicePlaying}
+              />
+            )
+          }
+        />
+      )}
 
       <MessageInput
         messageInput={messageInput}
