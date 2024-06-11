@@ -8,6 +8,7 @@ import { useMessages } from '@/hooks/useMessages';
 import { useLocation } from '@/hooks/useLocation';
 import { PageLoader } from '@/components/PageLoader';
 import { MessageLoader } from '@/components/MessageLoader';
+import { EmptyState } from '@/components/EmptyState';
 
 const Index = () => {
   const {
@@ -35,6 +36,9 @@ const Index = () => {
   }, []);
 
   if (isLoading) return <PageLoader />;
+
+  if (messages.length === 0)
+    return <EmptyState message="У вас поки немає повідомлень" />;
 
   return (
     <SafeAreaView style={chatStyles.container}>
